@@ -13,13 +13,44 @@
       <h1>Employee Details</h1>
       <div>
       <form #formData="ngForm">
-        <input type="text" name="searchname" [(ngModel)]="searchname" placeholder="enter name">&nbsp;&nbsp;
-        <button type="submit" class="btn btn-info" (click)="search(formData.value)">Search</button>
+        <input type="text" name="searchname" [(ngModel)]="searchname" placeholder="Enter name ">&nbsp;&nbsp;
+        <button type="submit" class="btn btn-info" (click)="search()">Search</button>
       </form>
       <br><br>
       <button class="btn btn-info" (click)="display()">View</button>
+      <!-- <button class="btn btn-info" (click)="searchfun(searchname)">View</button> -->
+      &nbsp;&nbsp;<label for="filteroption">Filter</label>&nbsp;&nbsp;
+
+      <select name="filteroption" id="filteroption">
+        <option value="emp_id">Employee Id</option>
+        <option value="emp_name">Employee Name<option>
+        <option value="emp_status">Status</option>
+        <option value="department">Departmeny</option>
+      </select>
       <br><br>
-      <table *ngIf="details">
+      <table *ngIf="viewing">
+        <tr>
+          <th>Employee Id</th>
+          <th>Employee Name</th>
+          <th>Department</th>
+          <th>Status</th>
+          <th>Salary</th>
+          <th>AGE</th>
+          <th>PLACE</th>
+        </tr>
+        <tr *ngFor="let i of details">
+          <td>{{i.empid}}</td>
+          <td>{{i.emp_name}}</td>
+          <td>{{i.id.department}}</td>
+          <td>{{i.id.emp_status}}</td>
+          <td>{{i.id.emp_salary}}</td>
+          <td>{{i.age}}</td>
+          <td>{{i.place}}</td>
+        </tr>
+        <button (click)="previous()">previous</button>
+        <button (click)="next()">next</button>
+      </table>
+      <!-- <table *ngIf="searching">
         <tr>
           <th>Employee Id</th>
           <th>Employee Name</th>
@@ -27,12 +58,28 @@
           <th>Status</th>
           <th>Salary</th>
         </tr>
-        <tr *ngFor="let i of details">
+        <tr *ngFor="let i of searchdata|filter:searchname">
           <td>{{i.emp_id}}</td>
           <td>{{i.emp_name}}</td>
           <td>{{i.department}}</td>
           <td>{{i.emp_status}}</td>
           <td>{{i.emp_salary}}</td>
+        </tr>
+      </table> -->
+      <table *ngIf="searching">
+        <tr>
+          <th>Employee Id</th>
+          <th>Employee Name</th>
+          <th>Department</th>
+          <th>Status</th>
+          <th>Salary</th>
+        </tr>
+        <tr>
+          <td>{{searchresult.emp_id}}</td>
+          <td>{{searchresult.emp_name|titlecase}}</td>
+          <td>{{searchresult.department}}</td>
+          <td>{{searchresult.emp_status}}</td>
+          <td>{{searchresult.emp_salary}}</td>
         </tr>
       </table>
       </div>
