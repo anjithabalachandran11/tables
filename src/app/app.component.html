@@ -14,42 +14,46 @@
       <div>
       <form #formData="ngForm">
         <input type="text" name="searchname" [(ngModel)]="searchname" placeholder="Enter name ">&nbsp;&nbsp;
-        <button type="submit" class="btn btn-info" (click)="search()">Search</button>
+        <button type="submit" class="btn btn-info" (click)="searchfun(searchname)">Search</button>
+        &nbsp;&nbsp;<label for="filteroption">Sort By:</label>&nbsp;&nbsp;
+        <select name="filteroption" [(ngModel)]="filteroption">
+          <option value="empid">Employee Id</option>
+          <option value="emp_name">Employee Name</option>
+          <option value="place">Place</option>
+          <option value="age">Age</option>
+        </select>&nbsp;&nbsp;
+        <button type="submit" class="btn btn-info" (click)="sortfun(filteroption)">Sort</button>
       </form>
       <br><br>
       <button class="btn btn-info" (click)="display()">View</button>
       <!-- <button class="btn btn-info" (click)="searchfun(searchname)">View</button> -->
-      &nbsp;&nbsp;<label for="filteroption">Filter</label>&nbsp;&nbsp;
-
-      <select name="filteroption" id="filteroption">
-        <option value="emp_id">Employee Id</option>
-        <option value="emp_name">Employee Name<option>
-        <option value="emp_status">Status</option>
-        <option value="department">Departmeny</option>
-      </select>
       <br><br>
-      <table *ngIf="viewing">
+      <table class="table table-bordered table-hover table-striped" *ngIf="viewing">
+        <thead>
         <tr>
-          <th>Employee Id</th>
-          <th>Employee Name</th>
-          <th>Department</th>
-          <th>Status</th>
-          <th>Salary</th>
-          <th>AGE</th>
-          <th>PLACE</th>
+          <th scope="col">Employee Id</th>
+          <th scope="col">Employee Name</th>
+          <th scope="col">Department</th>
+          <th scope="col">Status</th>
+          <th scope="col">Salary</th>
+          <th scope="col">AGE</th>
+          <th scope="col">PLACE</th>
         </tr>
+      </thead>
+      <tbody>
         <tr *ngFor="let i of details">
-          <td>{{i.empid}}</td>
-          <td>{{i.emp_name}}</td>
-          <td>{{i.id.department}}</td>
-          <td>{{i.id.emp_status}}</td>
-          <td>{{i.id.emp_salary}}</td>
-          <td>{{i.age}}</td>
-          <td>{{i.place}}</td>
+          <td scope="col">{{i.empid}}</td>
+          <td scope="col">{{i.emp_name}}</td>
+          <td scope="col">{{i.id.department}}</td>
+          <td scope="col">{{i.id.emp_status}}</td>
+          <td scope="col">{{i.id.emp_salary}}</td>
+          <td scope="col">{{i.age}}</td>
+          <td scope="col">{{i.place}}</td>
         </tr>
-        <button (click)="previous()">previous</button>
-        <button (click)="next()">next</button>
+        </tbody>
       </table>
+      <a href="#" *ngIf="viewing" (click)="previous()">previous</a>&nbsp;&nbsp;&nbsp;
+      <a href="#" *ngIf="viewing" (click)="next()">next</a>
       <!-- <table *ngIf="searching">
         <tr>
           <th>Employee Id</th>
@@ -73,15 +77,20 @@
           <th>Department</th>
           <th>Status</th>
           <th>Salary</th>
+          <th>AGE</th>
+          <th>PLACE</th>
         </tr>
         <tr>
-          <td>{{searchresult.emp_id}}</td>
-          <td>{{searchresult.emp_name|titlecase}}</td>
-          <td>{{searchresult.department}}</td>
-          <td>{{searchresult.emp_status}}</td>
-          <td>{{searchresult.emp_salary}}</td>
+          <td>{{searchresult.empid}}</td>
+          <td>{{searchresult.emp_name}}</td>
+          <td>{{searchresult.id.department}}</td>
+          <td>{{searchresult.id.emp_status}}</td>
+          <td>{{searchresult.id.emp_salary}}</td>
+          <td>{{searchresult.age}}</td>
+          <td>{{searchresult.place}}</td>
         </tr>
       </table>
+
       </div>
     </div>
     <div class="col-3"></div>
